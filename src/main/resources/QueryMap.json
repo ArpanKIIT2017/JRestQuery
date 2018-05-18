@@ -1,0 +1,12 @@
+[
+{
+    "Query_id": "EMP",
+    "Query":"SELECT * FROM JAVA$EMP"
+},
+
+{
+     "Query_id": "TABS",
+    "Query":"SELECT * FROM tab"
+    
+}    
+]

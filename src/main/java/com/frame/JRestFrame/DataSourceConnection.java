@@ -19,12 +19,13 @@ public class DataSourceConnection {
 	{
 		try
 		{
-			Class.forName("oracle.jdbc.driver.OracleDriver"); 
+                                                    DataSourceParams ob = new DataSourceParams();
+                                                    ob.readParam();
+			Class.forName(ob.getDriver()); 
 			
-			//String url="jdbc: TESTDB:1521/PDB1.602223551.oraclecloud.internal";
-                                                     String url="jdbc:oracle:thin:@129.154.69.241:1521/PDB1.602223551.oraclecloud.internal";
-			String user="arjun";
-			String passwd="@xunil9i";
+                                                     String url=ob.getURL();
+			String user=ob.getUserName();
+			String passwd=ob.getPasswd();
                         
                         /*
 			String url="jdbc:oracle:thin:@localhost:1521/orclpdb";

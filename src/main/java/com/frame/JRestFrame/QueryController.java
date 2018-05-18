@@ -23,9 +23,11 @@ public class QueryController {
     DataSourceConnection conn = new DataSourceConnection();
     
     @RequestMapping(value="/query", method=RequestMethod.GET)
-    public List<Map> rawResult(@RequestParam("query") String query) throws Exception{
+    public List<Map> rawResult(@RequestParam("query") String query_id) throws Exception{
         
-        String sql = query;
+        QueryMapper qmap = new QueryMapper(query_id);
+        
+        String sql = qmap.getQuery();
         
         ResultSet results=conn.runSelectQuery(sql);
         
