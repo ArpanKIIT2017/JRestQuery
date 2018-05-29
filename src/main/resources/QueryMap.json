@@ -8,5 +8,16 @@
      "Query_id": "TABS",
     "Query":"SELECT * FROM tab"
     
-}    
+},
+
+{
+     "Query_id": "NamesReport",
+    "Query":"SELECT Name from JAVA$EMP"
+    },
+
+    {
+    	"Query_id":"ThisRepo",
+	"Query" : "Select * FROM JAVA$EMP"
+    }
+
 ]
