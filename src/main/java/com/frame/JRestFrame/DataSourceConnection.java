@@ -19,11 +19,11 @@ public class DataSourceConnection {
 	{
 		try
 		{
-                                                    DataSourceParams ob = new DataSourceParams();
-                                                    ob.readParam();
+                        DataSourceParams ob = new DataSourceParams();
+                        ob.readParam();
 			Class.forName(ob.getDriver()); 
 			
-                                                     String url=ob.getURL();
+                        String url=ob.getURL();
 			String user=ob.getUserName();
 			String passwd=ob.getPasswd();
                         

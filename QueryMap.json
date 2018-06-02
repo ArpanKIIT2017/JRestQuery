@@ -1,1 +1,1 @@
-[{"Query_id":"EMP","Query":"select * from JAVA$EMP;"},{"Query_id":"TABS","Query":"select * from tabs"}]
+[{"Query_id":"EMP","Query":"SELECT * FROM JAVA$EMP"},{"Query_id":"labels","Query":"select name,address from JAVA$EMP"},{"Query_id":"employees","Query":"select * from employees"},{"Query_id":"dept","Query":"select * from departments"},{"Query_id":"1003EMP","Query":"select first_name||' '||last_name as Name from employees"},{"Query_id":"1001EMP","Query":"select first_name||' '||last_name as Name from employees"}]

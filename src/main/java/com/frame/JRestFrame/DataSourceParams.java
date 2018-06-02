@@ -12,6 +12,8 @@ package com.frame.JRestFrame;
 
 import java.io.*;
 import java.util.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class DataSourceParams {
     
                  
@@ -60,9 +62,10 @@ public class DataSourceParams {
                   
                         String fileName = "CustomDataConn.dat";    
 
-                        ClassLoader classLoader = getClass().getClassLoader();
-                         File file = new File(classLoader.getResource(fileName).getFile());
-
+                        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+                        CustomResourceLoader ob_res = (CustomResourceLoader) context.getBean("customResourceLoader");
+        
+                        File file = ob_res.getFile(fileName);
                         Scanner sc  = new Scanner(file);
                         
                        driver=sc.nextLine();
@@ -74,10 +77,12 @@ public class DataSourceParams {
                   
                   public void updateParam() throws Exception{
                       
-                      String fileName = "CustomDataConn.dat";    
+                        String fileName = "CustomDataConn.dat";    
 
-                        ClassLoader classLoader = getClass().getClassLoader();
-                        File file = new File(classLoader.getResource(fileName).getFile());
+                        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+                        CustomResourceLoader ob_res = (CustomResourceLoader) context.getBean("customResourceLoader");
+        
+                        File file = ob_res.getFile(fileName);
                         
                         FileWriter fw = new FileWriter(file,false); //overwrite file
                         

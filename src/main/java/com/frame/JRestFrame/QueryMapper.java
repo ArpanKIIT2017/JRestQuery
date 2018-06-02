@@ -16,6 +16,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class QueryMapper {
     
@@ -53,8 +55,10 @@ public class QueryMapper {
         
         System.out.println("Parser object created....");
         
-        ClassLoader classLoader = getClass().getClassLoader();
-         File file = new File(classLoader.getResource(fileName).getFile());
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+       CustomResourceLoader ob_res = (CustomResourceLoader) context.getBean("customResourceLoader");
+        
+       File file = ob_res.getFile();
          
         Object ob = parser.parse(new FileReader(file));
         

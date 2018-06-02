@@ -10,6 +10,12 @@ function readData()
     
 	var qid=document.getElementById('qid').value;
     var query=document.getElementById('query').value;
+
+    var len = query.length;
+    
+    if(query.charAt(len-1)==';'){
+        query=query.substring(0,len-1);
+    }
     
     var xhttp = new XMLHttpRequest();
 
@@ -21,11 +27,13 @@ function readData()
         }
       };
 
-    var url = "newQuery?qid="+qid+"&&query="+query;
-    xhttp.open("GET",url,true);
+    var url = "newQuery";
+    var params = "qid="+qid+"&query="+query;
+    xhttp.open("POST",url,true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-    xhttp.send();  
-    
+    xhttp.send(params);
+
 }
 
 function GetData()
@@ -52,8 +60,29 @@ function renderDataView(data)
     var code_view="";
 
     data.forEach(entry => {
-        code_view = code_view+"<div class='jumbotron'><h4>"+entry.Query_id+"</h4><hr>"+entry.Query+"</div>";
+        code_view = code_view+"<div class='jumbotron'><h4>"+entry.Query_id+"</h4><hr>"+entry.Query+"<hr><button class='btn btn-danger' id='delBut' onclick='return delQuery(\""+entry.Query_id+"\")'>Delete</button></div>";
     });
 
     document.getElementById("showData").innerHTML=code_view;
 }
+
+function delQuery(id)
+{
+    if(confirm("Are you sure you want to delete this Query?"))
+    {  
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+            GetData();
+          }
+        };
+
+        var url = "delQuery/"+id;
+        xhttp.open("DELETE",url,true);
+
+        xhttp.send();  
+    }
+    
+}
+

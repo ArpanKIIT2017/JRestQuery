@@ -21,6 +21,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -39,7 +42,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class QueryMapController {
     
     @CrossOrigin
-   @RequestMapping("/newQuery")
+   @RequestMapping(value="/newQuery", method=RequestMethod.POST)
    public String newQuery(@RequestParam("qid") String qid, @RequestParam("query") String query) throws Exception{
        
         String fileName="QueryMap.json";
@@ -109,6 +112,37 @@ public class QueryMapController {
    
    }
    
-   
-    
+   @RequestMapping(value = "delQuery/{id}", method = RequestMethod.DELETE)
+   public String deleteQuery(@PathVariable String id) throws Exception{
+       
+       JSONArray arr = getQueryMap();
+       int i=0;
+       for(Object ob:arr){
+            
+           JSONObject row = (JSONObject)ob;
+           
+           String qid = row.get("Query_id").toString();
+           
+           if(qid.equals(id)){
+               arr.remove(i);
+               break;
+           }
+           i++;
+        }
+        
+       ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+       CustomResourceLoader ob_res = (CustomResourceLoader) context.getBean("customResourceLoader");
+        
+       File file = ob_res.getFile();
+       FileWriter fw = new FileWriter(file.getAbsoluteFile(),false);
+       BufferedWriter out = new BufferedWriter(fw);
+       out.write(arr.toJSONString());
+       out.flush();
+       out.close();
+       fw.close();
+
+       return arr.toJSONString();
+      
+   }
+            
 }

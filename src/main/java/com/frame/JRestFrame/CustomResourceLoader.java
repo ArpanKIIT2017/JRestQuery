@@ -43,5 +43,13 @@ public class CustomResourceLoader implements ResourceLoaderAware {
          return file;
     }
     
+    public File getFile(String filename) throws IOException{
+        
+         Resource banner = resourceLoader.getResource("file:"+filename);
+         File file = banner.getFile();
+        
+         return file;
+    }
+    
     
 }
